@@ -1,9 +1,39 @@
+The expected workflow is:
+
+1. Build and test (run) in the build tree, whether inside Visual Studio / Visual Code or at the command line with the dotnet executable.
+2. Publish the application into its own separate directory.
+3. Distribute and run this published build.
+
 ## How to Build Krate Proof-of-Concept
 1. Navigate into /src and open Stratis.Bitcoin.FullNode.sln with Visual Studio
 2. Inside Visual Studio, in the Solution Explorer side window, right-click "Krate.KrateD" project and select "Set as StartUp Project"
 3. In the top menu bar, select Build > Rebuild Solution
 
-## How to Run Krate
+## How to run Krate from the source tree
+
+### Inside Visual Studio
+1. Ensure that the Krate.KrateD project is the startup project by right-clicking on the overall project and then  selecting "Set as Startup Project"
+2. Click on Debug -> Start Without Debugging, or press Ctrl+F5
+3. Let it finish loading, and then open a browser and navigate to http://localhost:37220/swagger/index.html
+
+### From the command line
+1. Navigate to the Krate.KrateD folder where Krate.KrateD.csproj exists.
+2. Type `dotnet run`. This will cause dotnet to ensure compilation (including many ignorable warnings) before running the application.
+3. Let it finish loading, and then open a browser and navigate to http://localhost:37220/swagger/index.html
+
+## How to publish Krate
+
+If you're going to run Krate from a non-SDK system, it is probably easier to publish it on one system, and only copy over the published folder to the target systems.
+
+### Through Visual Studio
+1. Right click on the Krate.KrateD project and select "Publish..."
+2. Follow the wizard to select a folder to publish to. Remember this folder for use in copying to other systems, or for running from directly.
+
+### Through the dotnet command
+1. Navigate to the Krate.KrateD folder where Krate.KrateD.csproj exists.
+2. Type `dotnet publish -o <output_dir>` where `<output_dir>` is a new directory with nothing in it. A clean directory will make it easier to copy the whole thing over to a new machine without extra files.
+
+## How to Run Krate from a published tree
 1. Go into the folder that contains "Krate.KrateD.dll" file.
 2. Open Windows command prompt
 3. Change the directory by typing `cd <directory>`, replacing \<directory> with the directory path that contains "Krate.KrateD.dll"
